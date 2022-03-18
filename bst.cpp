@@ -1,16 +1,24 @@
 #include<iostream>
 #include<vector>
 #include<queue>
+#include<string>
 using namespace std;
 
 template<typename T>
 class Node{
     public:
         T data;
+        T hex;
         Node<T>* left;
         Node<T>* right;
         Node(T val){
             data = val;
+            left = nullptr;
+            right = nullptr;
+        };
+        Node(T val, T hexValue){
+            data = val;
+            hex = hexValue;
             left = nullptr;
             right = nullptr;
         };
@@ -37,6 +45,10 @@ class BST{
         bool isEmpty();
         Node<T>* get(Node<T>*, T);
         Node<T>* insert(Node<T>*, T);
+        //for the challenge only
+        Node<T>* insertHex(Node<T>*, T, T);
+        // Node<T>* getNodeFromHex(Node<T>*, T);
+        //end challenge ultities
         void deleteNode(Node<T>*);
         Node<T>* maximum(Node<T>*);
         Node<T>* minimum(Node<T>*);
@@ -89,6 +101,21 @@ Node<T>* BST<T>::get(Node<T>* root, T key){
     }
 }
 
+//challenge only
+// template<typename string>
+Node<string>* getNodeFromHex(Node<string>* root, string key){
+    if (!root || root->hex == key){
+        return root;
+    }
+    if (stoi(root -> hex) < stoi(key)){
+        return getNodeFromHex(root-> right, key);
+    }
+    else{
+        return getNodeFromHex(root -> left, key);
+    }
+}
+
+
 template<typename T>
 Node<T>* BST<T>::getParent(Node<T>*root, Node<T>* node){
     if (!root || node == root){
@@ -115,6 +142,21 @@ Node<T>* BST<T>::insert(Node<T>* root, T val){
     }
     else{
         root -> left = insert(root -> left, val);
+    }
+    return root;
+}
+
+//challenge only
+template<typename T>
+Node<T>* BST<T>::insertHex(Node<T>* root, T val, T hexVal){
+    if (!root){
+        root = new Node<T>(val, hexVal);
+    }
+    else if (val > root -> data){
+        root -> right = insertHex(root -> right, val, hexVal);
+    }
+    else{
+        root -> left = insertHex(root -> left, val, hexVal);
     }
     return root;
 }
