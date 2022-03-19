@@ -1,55 +1,15 @@
 #include<iostream>
-#include<fstream>
-#include<string>
-#include <sstream> 
-#include <typeinfo>
 #include<stack>
 #include "bst.cpp"
+#include "utility.cpp"
 using namespace std;
-
-//read a CSV file into C++ vector.
-vector< vector<string> >readCSV(string filePath){
-    vector< vector<string> > content;
-	vector<string> row;
-	string line, word;
- 
-	fstream file (filePath, ios::in);
-	if(file.is_open())
-	{
-        //get the all the line of csv file
-		while(getline(file, line))
-		{
-			row.clear();
-			stringstream str(line);
-            //seperate the word with ','
-			while(getline(str, word, ','))
-				row.push_back(word);
-			content.push_back(row);
-		}
-	}
-    return content;
-}
-
-//print a vector of string vectors.
-void printVector(vector< vector<string> > content){
-    for(int i=0;i<content.size();i++)
-	{
-		for(int j=0;j<content[i].size();j++)
-		{
-			cout<<content[i][j]<<" ";
-		}
-		cout<<"\n";
-	}
-}
 
 template <typename T>
 void createBSTFromCSV(BST<T>* csvBST, vector< vector<string> >csvVec){
-    // BST<T> csvBST = BST<T>();
-    csvBST->root = csvBST->insertHex(csvBST->root, csvVec[0][0], csvVec[0][1]);
+    csvBST->root = insertHex(csvBST->root, csvVec[0][0], csvVec[0][1]);
     for (int i =1; i<csvVec.size(); i++){
-        csvBST->insertHex(csvBST->root, csvVec[i][0], csvVec[i][1]);
+        insertHex(csvBST->root, csvVec[i][0], csvVec[i][1]);
     }
-    // return csvBST;
 }
 
 string binToHex(BST<string> bst, string input){

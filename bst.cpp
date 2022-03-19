@@ -16,6 +16,7 @@ class Node{
             left = nullptr;
             right = nullptr;
         };
+        //for the challenge
         Node(T val, T hexValue){
             data = val;
             hex = hexValue;
@@ -45,10 +46,6 @@ class BST{
         bool isEmpty();
         Node<T>* get(Node<T>*, T);
         Node<T>* insert(Node<T>*, T);
-        //for the challenge only
-        Node<T>* insertHex(Node<T>*, T, T);
-        // Node<T>* getNodeFromHex(Node<T>*, T);
-        //end challenge ultities
         void deleteNode(Node<T>*);
         Node<T>* maximum(Node<T>*);
         Node<T>* minimum(Node<T>*);
@@ -101,21 +98,6 @@ Node<T>* BST<T>::get(Node<T>* root, T key){
     }
 }
 
-//challenge only
-// template<typename string>
-Node<string>* getNodeFromHex(Node<string>* root, string key){
-    if (!root || root->hex == key){
-        return root;
-    }
-    if (stoi(root -> hex) < stoi(key)){
-        return getNodeFromHex(root-> right, key);
-    }
-    else{
-        return getNodeFromHex(root -> left, key);
-    }
-}
-
-
 template<typename T>
 Node<T>* BST<T>::getParent(Node<T>*root, Node<T>* node){
     if (!root || node == root){
@@ -146,21 +128,6 @@ Node<T>* BST<T>::insert(Node<T>* root, T val){
     return root;
 }
 
-//challenge only
-template<typename T>
-Node<T>* BST<T>::insertHex(Node<T>* root, T val, T hexVal){
-    if (!root){
-        root = new Node<T>(val, hexVal);
-    }
-    else if (val > root -> data){
-        root -> right = insertHex(root -> right, val, hexVal);
-    }
-    else{
-        root -> left = insertHex(root -> left, val, hexVal);
-    }
-    return root;
-}
-
 template<typename T>
 Node<T>* BST<T>::minimum(Node<T>*root){
     if (!root || !(root ->left)){
@@ -183,7 +150,6 @@ Node<T>* BST<T>::successor(Node<T>* node){
         return minimum(node->right);
     }
     Node<T>* parent = getParent(root,node);
-    //double check heap memory assignment
     while (parent && node == parent->right){
         node = parent;
         parent = getParent(root,parent);
@@ -193,7 +159,6 @@ Node<T>* BST<T>::successor(Node<T>* node){
 
 template<typename T>
 void BST<T>::transplant(Node<T>* u, Node<T>* v){
-    //no set parent
     if (u == root){
         root = v;
     }
@@ -214,7 +179,7 @@ void BST<T>::deleteNode(Node<T>* node){
         transplant(node, node->right);
     } 
     else{
-        //succ
+        //y is successor
         Node<T>*y = minimum(node->right);
         if (getParent(root,y) != node){
             transplant(y, y->right);
