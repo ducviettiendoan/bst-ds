@@ -16,7 +16,7 @@ int main(){
     testBST.insert(testBST.root, 4);
     testBST.insert(testBST.root, 8);
     testBST.insert(testBST.root, 6);
-    // testBST.in_order(testBST.root);
+    cout<<testBST.in_order(testBST.root, emptyStr)<<endl;
     // cout<<testBST.minimum(testBST.root)->data<<endl;
     // cout<<testBST.maximum(testBST.root)->data<<endl;
     //test succ
@@ -50,13 +50,13 @@ int main(){
     //     final.pop();
     // }
 
-    //trim
+    //test trim
     testBST.trim(6,15);
+    //print the BST again (in-level order)
     Node<int>* getNode2 = testBST.get(testBST.root, 10);
     queue<Node<int>*> final = testBST.getSubTree(getNode2);
     while (!final.empty()){
         cout<<final.front()->data<<endl;
         final.pop();
     }
-    cout<<testBST.in_order(testBST.root, emptyStr)<<endl;
 }
