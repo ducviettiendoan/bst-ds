@@ -4,6 +4,7 @@
 #include <sstream> 
 #include<vector>
 #include <typeinfo>
+#include "bst.cpp"
 using namespace std;
 
 //read a CSV file into C++ vector.

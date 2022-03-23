@@ -2,6 +2,8 @@
 #include<vector>
 #include<queue>
 #include<string>
+#include<cstring>
+#include<algorithm>
 using namespace std;
 
 template<typename T>
@@ -51,7 +53,7 @@ class BST{
         Node<T>* minimum(Node<T>*);
         Node<T>* successor(Node<T>*);
         //ask for this method
-        void in_order(Node<T>*);
+        char* in_order(Node<T>*, char*);
         void trim(T low, T high);
 };
 
@@ -191,13 +193,17 @@ void BST<T>::deleteNode(Node<T>* node){
 }
 
 template<typename T>
-void BST<T>::in_order(Node<T>* root){
+char* BST<T>::in_order(Node<T>* root, char* allItem){
     if (!root){
-        return;
+        return allItem;
     }
-    in_order(root -> left);
-    cout<<root -> data<<endl;
-    in_order(root -> right);
+    in_order(root -> left, allItem);
+    strcat(allItem, to_string(root->data).c_str());
+    // strcat(*allItem, to_string(root->data));
+    // cout<<to_string(root->data)<<endl;
+    in_order(root -> right, allItem);
+    // cout<<*allItem<<endl;
+    return allItem;
 }
 
 
@@ -270,6 +276,7 @@ void BST<T>::trim(T low, T high){
     Node<T>* head;
     while (!originalSubTree.empty()){
         head = originalSubTree.front();
+        //check here
         vector<int>::iterator it;
         it = find((*trimVec).begin(), (*trimVec).end(), head->data);
         if (it!= (*trimVec).end()){

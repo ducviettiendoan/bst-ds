@@ -1,6 +1,6 @@
 #include<iostream>
 #include<stack>
-#include "bst.cpp"
+#include<string>
 #include "utility.cpp"
 using namespace std;
 

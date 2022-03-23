@@ -4,6 +4,7 @@ using namespace std;
 
 int main(){
     BST<int> testBST = BST<int>();
+    char* emptyStr = new char[0];
     testBST.root = testBST.insert(testBST.root, 10);
     testBST.insert(testBST.root, 5);
     testBST.insert(testBST.root, 15);
@@ -57,5 +58,5 @@ int main(){
         cout<<final.front()->data<<endl;
         final.pop();
     }
-    // testBST.in_order(testBST.root);
+    cout<<testBST.in_order(testBST.root, emptyStr)<<endl;
 }
